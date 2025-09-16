@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas Seguras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Generador de Contraseñas Seguras</h1>
+        
+        <div class="form-grid">
+            <div class="form-group">
+                <h3>⚙️ Configuración Básica</h3>
+                
+                <div class="input-group">
+                    <label for="length">Número de caracteres:</label>
+                    <input type="number" id="length" min="4" max="128" value="16">
+                </div>
+
+                <div class="input-group">
+                    <label for="quantity">Cantidad de contraseñas:</label>
+                    <input type="number" id="quantity" min="1" max="20" value="1">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="readable" />
+                    <label for="readable">Contraseña legible (evita caracteres confusos como 0, O, l, I)</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>🔤 Tipos de Caracteres</h3>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="lowercase" checked />
+                    <label for="lowercase">Letras minúsculas (a-z)</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="uppercase" checked />
+                    <label for="uppercase">Letras mayúsculas (A-Z)</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="numbers" checked />
+                    <label for="numbers">Números (0-9)</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="symbols" checked />
+                    <label for="symbols">Símbolos (!@#$%^&*)</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="spaces" />
+                    <label for="spaces">Incluir espacios</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>🚫 Caracteres Personalizados</h3>
+                
+                <div class="input-group">
+                    <label for="includeChars">Caracteres a incluir obligatoriamente:</label>
+                    <input type="text" id="includeChars" placeholder="Ej: @#$%">
+                </div>
+
+                <div class="input-group">
+                    <label for="excludeChars">Caracteres a excluir:</label>
+                    <input type="text" id="excludeChars" placeholder="Ej: 0O1lI">
+                </div>
+
+                <div class="input-group">
+                    <label for="customSymbols">Símbolos personalizados:</label>
+                    <input type="text" id="customSymbols" placeholder="Reemplaza símbolos por defecto">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>📋 Reglas Especiales</h3>
+                
+                <div class="input-group">
+                    <label for="startsWith">Debe empezar con:</label>
+                    <input type="text" id="startsWith" maxlength="10" placeholder="Prefijo obligatorio">
+                </div>
+
+                <div class="input-group">
+                    <label for="endsWith">Debe terminar con:</label>
+                    <input type="text" id="endsWith" maxlength="10" placeholder="Sufijo obligatorio">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="noSequential" />
+                    <label for="noSequential">Evitar secuencias (123, abc, qwe)</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="noRepeat" />
+                    <label for="noRepeat">Sin caracteres repetidos consecutivos</label>
+                </div>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generatePasswords()">
+            🎲 Generar Contraseñas
+        </button>
+
+        <div class="result-section">
+            <div id="passwordResults"></div>
+        </div>
+    </div>
+
+    <script src="script.js">
+    </script>
+
+</body>
+</html>
