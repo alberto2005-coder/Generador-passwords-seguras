@@ -4,19 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Contraseñas Seguras</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- SEO & Redes Sociales (Meta Tags) -->
+    <meta name="description" content="Diseña contraseñas ultra-seguras, robustas y personalizadas al instante. Protege todas tus cuentas digitales con nuestro generador aleatorio avanzado.">
+    <meta name="keywords" content="generador de contraseñas, contraseña segura, password generator, seguridad, claves aleatorias, generador de claves, contraseñas robustas">
+    <meta name="author" content="Alberto Ortiz">
+    <meta name="publisher" content="Alberto Ortiz">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://alberto2005-coder.github.io/Generador-passwords-seguras/">
+    
+    <!-- Facebook / Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alberto2005-coder.github.io/Generador-passwords-seguras/">
+    <meta property="og:title" content="Generador de Contraseñas Seguras">
+    <meta property="og:description" content="Diseña contraseñas ultra-seguras, robustas y personalizadas al instante. Protege todas tus cuentas digitales con nuestro generador aleatorio avanzado.">
+    <meta property="og:image" content="logo.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://alberto2005-coder.github.io/Generador-passwords-seguras/">
+    <meta property="twitter:title" content="Generador de Contraseñas Seguras">
+    <meta property="twitter:description" content="Diseña contraseñas ultra-seguras, robustas y personalizadas al instante. Protege todas tus cuentas digitales con nuestro generador aleatorio avanzado.">
+    <meta property="twitter:image" content="logo.png">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="light-theme">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+    </button>
     <div class="container">
-        <h1>🔐 Generador de Contraseñas Seguras</h1>
+        <header class="app-header">
+            <div class="logo-wrapper">
+                <img src="logo.png" alt="Logo de Seguridad" title="Logo de Seguridad" class="logo-img">
+            </div>
+            <h1>Generador de Contraseñas</h1>
+            <p class="subtitle">Crea contraseñas robustas y personalizadas en segundos</p>
+        </header>
         
         <div class="form-grid">
             <div class="form-group">
                 <h3>⚙️ Configuración Básica</h3>
                 
                 <div class="input-group">
-                    <label for="length">Número de caracteres:</label>
-                    <input type="number" id="length" min="4" max="128" value="16">
+                    <div class="label-row">
+                        <label for="length">Número de caracteres:</label>
+                        <span id="length-val" class="length-badge">16</span>
+                    </div>
+                    <div class="slider-wrapper">
+                        <input type="range" id="length-slider" min="4" max="128" value="16" class="range-slider">
+                        <input type="number" id="length" min="4" max="128" value="16" class="length-num-input">
+                    </div>
                 </div>
 
                 <div class="input-group">

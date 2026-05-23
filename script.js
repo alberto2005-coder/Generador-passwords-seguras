@@ -151,74 +151,167 @@ function hasSequentialChars(password) {
         return { level: 'Muy Fuerte', class: 'strength-very-strong', width: '100%' };
     }
 
-    function showMessage(message, type) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = type;
-        messageDiv.textContent = message;
-        messageDiv.style.position = 'fixed';
-        messageDiv.style.top = '20px';
-        messageDiv.style.right = '20px';
-        messageDiv.style.padding = '10px 20px';
-        messageDiv.style.backgroundColor = type === 'success' ? '#28a745' : '#dc3545';
-        messageDiv.style.color = 'white';
-        messageDiv.style.borderRadius = '5px';
-        messageDiv.style.zIndex = '1000';
+function showMessage(message, type) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `toast-msg toast-${type}`;
+    messageDiv.textContent = message;
+    
+    // Apply styling programmatically for immediate effect
+    messageDiv.style.position = 'fixed';
+    messageDiv.style.bottom = '30px';
+    messageDiv.style.right = '30px';
+    messageDiv.style.padding = '14px 24px';
+    messageDiv.style.background = type === 'success' 
+        ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' 
+        : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+    messageDiv.style.color = 'white';
+    messageDiv.style.borderRadius = '12px';
+    messageDiv.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+    messageDiv.style.fontFamily = 'inherit';
+    messageDiv.style.fontWeight = '600';
+    messageDiv.style.fontSize = '0.95rem';
+    messageDiv.style.zIndex = '9999';
+    messageDiv.style.display = 'flex';
+    messageDiv.style.alignItems = 'center';
+    messageDiv.style.gap = '8px';
+    messageDiv.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.25)';
+    messageDiv.style.opacity = '0';
+    messageDiv.style.transform = 'translateY(20px)';
 
-        document.body.appendChild(messageDiv);
+    document.body.appendChild(messageDiv);
 
+    // Trigger animation
+    setTimeout(() => {
+        messageDiv.style.opacity = '1';
+        messageDiv.style.transform = 'translateY(0)';
+    }, 10);
+
+    // Hide and remove
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateY(20px)';
         setTimeout(() => {
-            document.body.removeChild(messageDiv);
-        }, 3000);
-    }
-
-    function generatePasswords() {
-        try {
-            const quantity = parseInt(document.getElementById('quantity').value);
-            const resultsDiv = document.getElementById('passwordResults');
-            resultsDiv.innerHTML = '';
-
-            for (let i = 0; i < quantity; i++) {
-                const password = generatePassword();
-                const strength = calculateStrength(password);
-
-                const passwordContainer = document.createElement('div');
-                passwordContainer.style.marginBottom = '20px';
-
-                const passwordDisplay = document.createElement('div');
-                passwordDisplay.className = 'password-display';
-                passwordDisplay.textContent = password;
-
-                const copyBtn = document.createElement('button');
-                copyBtn.textContent = '📋 Copiar';
-                copyBtn.className = 'copy-btn';
-                copyBtn.onclick = () => {
-                    navigator.clipboard.writeText(password);
-                    showMessage('¡Contraseña copiada!', 'success');
-                };
-
-                const strengthMeter = document.createElement('div');
-                strengthMeter.className = 'strength-meter';
-                strengthMeter.innerHTML = `
-                    <div class="strength-text">Fortaleza: ${strength.level}</div>
-                    <div class="strength-bar">
-                        <div class="strength-fill ${strength.class}" style="width: ${strength.width}"></div>
-                    </div>
-                `;
-
-                passwordContainer.appendChild(passwordDisplay);
-                passwordContainer.appendChild(copyBtn);
-                passwordContainer.appendChild(strengthMeter);
-
-                resultsDiv.appendChild(passwordContainer);
+            if (messageDiv.parentNode) {
+                document.body.removeChild(messageDiv);
             }
+        }, 300);
+    }, 3000);
+}
 
-        } catch (error) {
-            document.getElementById('passwordResults').innerHTML = 
-                `<div class="error">❌ ${error.message}</div>`;
+function generatePasswords() {
+    try {
+        const quantity = parseInt(document.getElementById('quantity').value);
+        const resultsDiv = document.getElementById('passwordResults');
+        resultsDiv.innerHTML = '';
+
+        for (let i = 0; i < quantity; i++) {
+            const password = generatePassword();
+            const strength = calculateStrength(password);
+
+            const passwordCard = document.createElement('div');
+            passwordCard.className = 'password-card';
+
+            const passwordHeader = document.createElement('div');
+            passwordHeader.className = 'password-header';
+
+            const passwordDisplay = document.createElement('div');
+            passwordDisplay.className = 'password-display';
+            passwordDisplay.textContent = password;
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = `<span>📋</span> Copiar`;
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(password);
+                copyBtn.innerHTML = `<span>✓</span> Copiado`;
+                copyBtn.classList.add('copied');
+                showMessage('¡Contraseña copiada!', 'success');
+                setTimeout(() => {
+                    copyBtn.innerHTML = `<span>📋</span> Copiar`;
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            };
+
+            passwordHeader.appendChild(passwordDisplay);
+            passwordHeader.appendChild(copyBtn);
+
+            const strengthMeter = document.createElement('div');
+            strengthMeter.className = 'strength-meter';
+            strengthMeter.innerHTML = `
+                <div class="strength-header">
+                    <span class="strength-text">Fortaleza de contraseña</span>
+                    <span class="strength-label" style="color: var(--${strength.class})">${strength.level}</span>
+                </div>
+                <div class="strength-bar">
+                    <div class="strength-fill ${strength.class}" style="width: ${strength.width}"></div>
+                </div>
+            `;
+
+            passwordCard.appendChild(passwordHeader);
+            passwordCard.appendChild(strengthMeter);
+
+            resultsDiv.appendChild(passwordCard);
         }
+
+    } catch (error) {
+        document.getElementById('passwordResults').innerHTML = 
+            `<div class="error">❌ ${error.message}</div>`;
     }
+}
+
+// Theme Toggle Logic
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+    } else {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+    }
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    if (document.body.classList.contains('dark-theme')) {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
+// Length Slider Logic
+const lengthSlider = document.getElementById('length-slider');
+const lengthInput = document.getElementById('length');
+const lengthValSpan = document.getElementById('length-val');
+
+function syncLengthValue(value) {
+    lengthSlider.value = value;
+    lengthInput.value = value;
+    lengthValSpan.textContent = value;
+}
+
+lengthSlider.addEventListener('input', (e) => {
+    syncLengthValue(e.target.value);
+});
+
+lengthInput.addEventListener('input', (e) => {
+    let val = parseInt(e.target.value) || 16;
+    if (val < 4) val = 4;
+    if (val > 128) val = 128;
+    syncLengthValue(val);
+});
 
 // Generar contraseña inicial al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    syncLengthValue(lengthInput.value);
     generatePasswords();
 });

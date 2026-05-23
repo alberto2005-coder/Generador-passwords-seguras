@@ -1,6 +1,6 @@
 # 🔐 Generador de Contraseñas Seguras
 
-Este proyecto es un **Generador de Contraseñas Seguras** completamente personalizable, desarrollado con **HTML, CSS y JavaScript**. Permite crear contraseñas aleatorias cumpliendo reglas de seguridad y personalización, con opciones para prefijos, sufijos, inclusión/exclusión de caracteres y mucho más.
+Este proyecto es un **Generador de Contraseñas Seguras** de aspecto moderno y premium, desarrollado con **HTML, CSS y JavaScript (Vanilla)**. Permite crear contraseñas aleatorias cumpliendo estrictas reglas de seguridad y personalización. Cuenta con una interfaz rediseñada con efectos *glassmorphism*, modo oscuro automático/manual con persistencia, logotipo propio y optimizaciones de usabilidad (UX) y SEO.
 
 ---
 
@@ -9,9 +9,10 @@ Este proyecto es un **Generador de Contraseñas Seguras** completamente personal
 ```
 generador-contrasenas/
 │
-├─ index.html          # Página principal
-├─ styles.css          # Estilos externos
-├─ script.js           # Funciones de generación y validación de contraseñas
+├─ index.html          # Página principal y estructura
+├─ styles.css          # Hojas de estilo modernas (claro/oscuro y variables)
+├─ script.js           # Lógica del generador, modo oscuro y sincronización
+├─ logo.png            # Logotipo de marca del generador
 └─ README.md           # Documentación del proyecto
 ```
 
@@ -19,19 +20,19 @@ generador-contrasenas/
 
 ## ⚙️ Funcionalidades
 
-* Configuración de longitud y cantidad de contraseñas.
-* Selección de tipos de caracteres:
-
-  * Letras minúsculas y mayúsculas
-  * Números
-  * Símbolos
-  * Espacios opcionales
-* Caracteres obligatorios y exclusión de caracteres.
-* Prefijo y sufijo personalizado.
-* Evitar secuencias (`123`, `abc`, `qwe`) y caracteres repetidos consecutivos.
-* Indicador de **fortaleza de contraseña**.
-* Botón para copiar la contraseña al portapapeles.
-* Contraseñas “legibles” evitando caracteres confusos (`0`, `O`, `l`, `I`).
+* **Interfaz Moderna & Premium**: Diseño estético responsivo y adaptable con efecto *glassmorphism* y tipografías Outfit y JetBrains Mono.
+* **Modo Claro / Oscuro**: Interruptor de tema flotante animado, con detección automática del tema del sistema operativo y persistencia mediante `localStorage`.
+* **Control Deslizante Inteligente**: Barra deslizable (slider) para ajustar la longitud de la contraseña en tiempo real, sincronizada de forma bidireccional con la casilla numérica.
+* **Copiado Rápido con Feedback**: Botón de copiado con transición animada instantánea (`✓ Copiado` con color verde neón) y notificaciones toast flotantes.
+* **SEO & Social Share**: Configuración SEO completa (canonical, keywords, autor, publisher, robots) y etiquetas Open Graph y Twitter Cards integradas para compartir en redes sociales de forma optimizada.
+* **Configuración de Seguridad Avanzada**:
+  - Selección de longitud (4-128 caracteres) y cantidad (1-20 contraseñas).
+  - Selección de tipos de caracteres (mayúsculas, minúsculas, números, símbolos y espacios).
+  - Inclusión obligatoria y exclusión de caracteres personalizados.
+  - Prefijos y sufijos obligatorios.
+  - Reglas especiales para evitar secuencias comunes (`123`, `abc`) o repeticiones de caracteres.
+  - Indicador dinámico de fortaleza de contraseña.
+  - Generación opcional de contraseñas "legibles" (evitando `0`, `O`, `l`, `I`).
 
 ---
 
