@@ -93,3 +93,63 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+
+---
+
+# English Version
+
+A **secure password generator** with a modern, premium look, built with **HTML, CSS and vanilla JavaScript**. It creates random passwords following strict security and customization rules, with a glassmorphism UI, automatic/manual dark mode, its own logo, and UX/SEO optimizations.
+
+## Project Structure
+
+```
+generador-contrasenas/
+│
+├─ index.html          # Main page and structure
+├─ styles.css          # Modern styles (light/dark and variables)
+├─ script.js           # Generator logic, dark mode and sync
+├─ logo.png            # Brand logo
+└─ README.md           # Project documentation
+```
+
+## Features
+
+* **Premium UI**: responsive glassmorphism design with Outfit and JetBrains Mono fonts.
+* **Light / Dark mode**: animated floating theme toggle, with automatic OS theme detection and `localStorage` persistence.
+* **Smart slider**: drag the slider to adjust password length in real time, synced both ways with the number input.
+* **Fast copy with feedback**: instant animated copy button (`✓ Copied` in neon green) and floating toast notifications.
+* **SEO & Social Share**: full SEO setup (canonical, keywords, author, publisher, robots) plus Open Graph and Twitter Cards.
+* **Advanced security configuration**:
+  - Length (4–128 characters) and quantity (1–20 passwords).
+  - Character types (uppercase, lowercase, numbers, symbols and spaces).
+  - Mandatory inclusion and custom character exclusion.
+  - Required prefixes and suffixes.
+  - Special rules to avoid common sequences (`123`, `abc`) or repeats.
+  - Dynamic strength meter.
+  - Optional "readable" passwords (avoiding `0`, `O`, `l`, `I`).
+
+## Tech Stack
+
+* **HTML5** — page structure
+* **CSS3** — gradients, shadows and responsive design
+* **JavaScript (Vanilla)** — generation logic, validation and strength meter
+
+## How to Use
+
+1. Clone or download the repository.
+2. Open `index.html` in any modern browser.
+3. Configure the password options as needed.
+4. Click **"Generate Passwords"**.
+5. Copy a password with the 📋 button.
+
+## Notes
+
+* Minimum password length is 4 characters, maximum is 128.
+* Up to 20 passwords can be generated at once.
+* If too many restrictions are applied (prefix, suffix, mandatory characters and exclusions) generation may fail — relax some options.
+
+## License
+
+This project is released under the **MIT** License. You are free to use, modify and distribute it with attribution to the author.
+
