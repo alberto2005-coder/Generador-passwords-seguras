@@ -38,6 +38,7 @@ Herramienta web para generar contraseñas aleatorias con control fino sobre su c
 - **Caracteres obligatorios y excluidos** definidos por ti.
 - **Prefijos y sufijos** obligatorios.
 - **Reglas anti-secuencia**: evita `123`, `abc` y repeticiones.
+- **Aleatoriedad criptográficamente segura**: `crypto.getRandomValues` con muestreo por rechazo y barajado Fisher-Yates, sin sesgo de módulo.
 - **Contraseñas legibles**: excluye caracteres ambiguos como `0`, `O`, `l` e `I`.
 - **Medidor de fortaleza** dinámico.
 - **Copia rápida** con confirmación visual y notificaciones toast.
@@ -70,7 +71,7 @@ Generador-passwords-seguras/
 
 ### Limitaciones de seguridad
 
-- La generación usa `Math.random`, que **no es un generador criptográficamente seguro**. Para contraseñas que vayas a usar de verdad, cambia la fuente de aleatoriedad a `crypto.getRandomValues`.
+- La generación usa `crypto.getRandomValues`, el generador criptográficamente seguro del navegador, con muestreo por rechazo y barajado Fisher-Yates, así que los caracteres no tienen sesgo estadístico. No hay respaldo inseguro: si el navegador no lo soporta, la app muestra un error en lugar de usar `Math.random`.
 - Si aplicas demasiadas restricciones a la vez (prefijo, sufijo, obligatorios y exclusiones), la generación puede no encontrar una combinación válida; relaja alguna opción.
 - No hay almacenamiento de contraseñas: si cierras la pestaña, se pierden. Usa un gestor de contraseñas para guardarlas.
 
@@ -109,6 +110,7 @@ A web tool for generating random passwords with fine-grained control over their 
 - **Required and excluded characters** chosen by you.
 - **Required prefixes and suffixes**.
 - **Anti-sequence rules**: avoids `123`, `abc` and repeats.
+- **Cryptographically secure randomness**: `crypto.getRandomValues` with rejection sampling and a Fisher-Yates shuffle, free of modulo bias.
 - **Readable passwords**: skips ambiguous characters such as `0`, `O`, `l` and `I`.
 - **Dynamic strength meter**.
 - **Quick copy** with visual confirmation and toast notifications.
@@ -141,7 +143,7 @@ Generador-passwords-seguras/
 
 ### Security limitations
 
-- Generation uses `Math.random`, which is **not a cryptographically secure generator**. For passwords you actually rely on, switch the randomness source to `crypto.getRandomValues`.
+- Generation uses `crypto.getRandomValues`, the browser's cryptographically secure generator, with rejection sampling and a Fisher-Yates shuffle, so characters carry no statistical bias. There is no insecure fallback: if the browser does not support it, the app shows an error instead of using `Math.random`.
 - If you stack too many constraints (prefix, suffix, required characters and exclusions), generation may fail to find a valid combination; relax an option.
 - Passwords are not stored: closing the tab loses them. Use a password manager to keep them.
 

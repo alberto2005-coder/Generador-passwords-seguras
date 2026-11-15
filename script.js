@@ -8,6 +8,63 @@ const charSets = {
         readableNumbers: '23456789'
     };
 
+    let randomBuffer = null;
+
+    function getCryptoSource() {
+        if (typeof globalThis !== 'undefined' && globalThis.crypto &&
+            typeof globalThis.crypto.getRandomValues === 'function') {
+            return globalThis.crypto;
+        }
+        if (typeof window !== 'undefined' && window.crypto &&
+            typeof window.crypto.getRandomValues === 'function') {
+            return window.crypto;
+        }
+        return null;
+    }
+
+    // Entero uniforme en [0, maxExclusive) usando el CSPRNG del navegador.
+    // El muestreo por rechazo elimina el sesgo del módulo.
+    function secureRandomInt(maxExclusive) {
+        if (!Number.isInteger(maxExclusive) || maxExclusive < 1) {
+            throw new Error('Rango aleatorio inválido: ' + maxExclusive);
+        }
+
+        if (maxExclusive === 1) {
+            return 0;
+        }
+
+        const cryptoSource = getCryptoSource();
+        if (!cryptoSource) {
+            throw new Error('Este navegador no soporta crypto.getRandomValues, necesario para generar contraseñas seguras');
+        }
+
+        if (!randomBuffer) {
+            randomBuffer = new Uint32Array(1);
+        }
+
+        const uint32Range = 0x100000000;
+        const limit = uint32Range - (uint32Range % maxExclusive);
+        let value;
+
+        do {
+            cryptoSource.getRandomValues(randomBuffer);
+            value = randomBuffer[0];
+        } while (value >= limit);
+
+        return value % maxExclusive;
+    }
+
+    // Fisher-Yates con el CSPRNG: todas las permutaciones son equiprobables.
+    function secureShuffle(chars) {
+        for (let i = chars.length - 1; i > 0; i--) {
+            const j = secureRandomInt(i + 1);
+            const tmp = chars[i];
+            chars[i] = chars[j];
+            chars[j] = tmp;
+        }
+        return chars;
+    }
+
 function getCharacterSet() {
     let charset = '';
     const isReadable = document.getElementById('readable').checked;
@@ -107,7 +164,7 @@ function hasSequentialChars(password) {
                 let charAttempts = 0;
 
                 do {
-                    char = charset[Math.floor(Math.random() * charset.length)];
+                    char = charset[secureRandomInt(charset.length)];
                     charAttempts++;
                 } while (noRepeat && password.length > 0 && char === password[password.length - 1] && charAttempts < 50);
 
@@ -117,7 +174,7 @@ function hasSequentialChars(password) {
             // Mezclar la parte central (después del prefijo y antes del sufijo)
             if (includeChars.length > 0 || availableLength > 0) {
                 const middlePart = password.slice(startsWith.length);
-                const shuffledMiddle = middlePart.split('').sort(() => Math.random() - 0.5).join('');
+                const shuffledMiddle = secureShuffle(middlePart.split('')).join('');
                 password = startsWith + shuffledMiddle;
             }
 
