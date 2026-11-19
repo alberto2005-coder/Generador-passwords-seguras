@@ -27,7 +27,7 @@ Herramienta web para generar contraseñas aleatorias con control fino sobre su c
 
 ### Demo
 
-**Pruébalo:** <https://alberto2005-coder.github.io/Generador-passwords-seguras/>
+**Pruébalo:** <https://albertoortiz.is-a.dev/Generador-passwords-seguras/>
 
 ### Características
 
@@ -99,7 +99,7 @@ A web tool for generating random passwords with fine-grained control over their 
 
 ### Demo
 
-**Try it:** <https://alberto2005-coder.github.io/Generador-passwords-seguras/>
+**Try it:** <https://albertoortiz.is-a.dev/Generador-passwords-seguras/>
 
 ### Features
 
